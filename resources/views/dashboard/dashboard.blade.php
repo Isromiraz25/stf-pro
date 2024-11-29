@@ -1,257 +1,219 @@
 @extends('master.index')
-@section('title', 'Dashboard')
+@section('title', 'Log Devices')
 @section('content')
 
-<!-- Device Statistics Section -->
-<div class="container">
-    <div class="tile_count">
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-tablet" aria-hidden="true"></i> Total Device </span>
-            <div class="count red">{{ $totalDevice }}</div>
-            <span class="count_bottom"><i class="green">All devices</i></span>
-        </div>
 
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-tablet" aria-hidden="true"></i> Total Device Android</span>
-            <div class="count red">{{ $deviceandroid }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> Android box </i></span>
-        </div>
 
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-desktop" aria-hidden="true"></i> Total Server</span>
-            <div class="count red">{{ $totalServer }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> Server Plugin end Android box </i></span>
-        </div>
 
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-tablet" aria-hidden="true"></i> Total Plugin</span>
-            <div class="count red">{{ $devicestb }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i> Plugin </i></span>
-        </div>
+    {{-- untuk menampilkan semua device  --}}
 
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-university" aria-hidden="true"></i> Total BCA</span>
-            <div class="count red">{{ $bca }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i> Account BCA </i></span>
-        </div>
+    <div class="container">
+        <div class="row">
+            @php
+                $no = 1;
+            @endphp
+            @foreach ($devices as $index => $item)
+                @php
+                    // Menentukan status berdasarkan kondisi
+                    $status = 'error'; // Default status
+                    if (isset($item['serial']) && $item['serial'] !== '') {
+                        $status = 'live'; // Hijau jika serial tersedia
+                    } elseif (isset($item['serial']) && $item['serial'] === '') {
+                        $status = 'dead'; // Merah jika serial kosong
+                    }
+                @endphp
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                    <div class="device-item">
+                        <div class="serial">{{ $item['serial'] ?? 'N/A' }}</div>
+                        <span class="status-indicator {{ $status }}"></span>
+                        <!-- Tombol untuk membuka modal -->
+                        <button class="btn btn-info btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#deviceModal{{ $index }}">
+                            Detail
+                        </button>
+                    </div>
+                </div>
 
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-university" aria-hidden="true"></i> Total BRI</span>
-            <div class="count red">{{ $bri }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i> Account BRI </i></span>
+                <!-- Modal untuk setiap item perangkat -->
+                <div class="modal fade" id="deviceModal{{ $index }}" tabindex="-1"
+                    aria-labelledby="deviceModalLabel{{ $index }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deviceModalLabel{{ $index }}">Device Detail</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Serial:</strong> {{ $item['serial'] ?? 'N/A' }}</p>
+                                <p><strong>Status:</strong>
+                                    <span class="status-indicator {{ $status }}"></span>
+                                    {{ ucfirst($status) }}
+                                </p>
+                                <!-- Anda bisa menambahkan informasi tambahan di sini -->
+                                <p><strong>Other Info:</strong> <!-- Misalnya informasi lain yang relevan --></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
-
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-university" aria-hidden="true"></i> Total BNI</span>
-            <div class="count red">{{ $bni }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i> Account BNI </i></span>
-        </div>
-
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-university" aria-hidden="true"></i> Total Mandiri</span>
-            <div class="count red">{{ $mandiri }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i> Account Mandiri </i></span>
-        </div>
-
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-university" aria-hidden="true"></i> Total CIMB</span>
-            <div class="count red">{{ $cimb }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i> Account CIMB </i></span>
-        </div>
-
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-university" aria-hidden="true"></i> Total PANIN</span>
-            <div class="count red">{{ $panin }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i> Account PANIN </i></span>
-        </div>
-
-        <div class="col-md-2 col-sm-4 tile_stats_count">
-            <span class="count_top"><i class="fa fa-university" aria-hidden="true"></i> Total BSI</span>
-            <div class="count red">{{ $bsi }}</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i> Account BSI </i></span>
-        </div>
-       <div class="col-md-2 col-sm-4 tile_stats_count">
-          <span class="count_top"><i class="fa fa-database" aria-hidden="true"></i></span>
-          <div class="count red"> DATA BANK</div>
-          <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i>---------------------------------------------------</i></span>
-      </div>
     </div>
-</div>
 
-<!-- Server Status Section -->
+    <!-- Tambahkan style di bawah ini -->
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
 
-<div class="card">
-  <div class="card-header">
-    <h5>Server Status</h5>
-  </div>
-  <div class="card-body">
-    
-      <tbody>
-        
-        <span class="border-start">
-        @foreach($serversStatus as $index => $server)
-          <tr>
-            <td>
-              {{ $server['name'] }}
-              @if($server['status'])
-                    <span class="status-indicator online"></span>
-                    @else
-                    <span class="status-indicator offline"></span>
-                @endif
-            </td>
-            {{-- <td>
-             
-              @if($server['status'])
-                    <span class="status-indicator online"></span>
-                    @else
-                    <span class="status-indicator offline"></span>
-                @endif
-            </td> --}}
-            <td>
-              @if($server['error'])
-                {{ $server['error'] }}
-              @else
-                
-              @endif
-            </td>
-          </tr>
+        .device-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: start;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .serial {
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+
+        .status-indicator.live {
+            background-color: green;
+            /* Hijau untuk hidup */
+        }
+
+        .status-indicator.dead {
+            background-color: red;
+            /* Merah untuk mati */
+        }
+
+        .status-indicator.error {
+            background-color: orange;
+            /* Kuning untuk error */
+        }
+    </style>
+
+
+
+
+    {{-- untuk menampilkan yang mati dan error saja  --}}
+
+    {{-- <div class="container">
+    <div class="row">
+        @php
+        $no = 1;
+        @endphp
+        @foreach ($devices as $index => $item)
+            @php
+                // Menentukan status berdasarkan kondisi
+                $status = 'error'; // Default status
+                if (isset($item['serial']) && $item['serial'] !== '') {
+                    $status = 'live'; // Hijau jika serial tersedia
+                } elseif (isset($item['serial']) && $item['serial'] === '') {
+                    $status = 'dead'; // Merah jika serial kosong
+                }
+
+                // Menyaring hanya perangkat dengan status error atau mati
+                if (!in_array($status, ['error', 'dead'])) {
+                    continue; // Lewati perangkat dengan status lainnya
+                }
+            @endphp
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                <div class="device-item">
+                    <div class="serial">{{ $item['serial'] ?? 'N/A' }}</div>
+                    <span class="status-indicator {{ $status }}"></span>
+                    <!-- Tombol untuk membuka modal -->
+                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#deviceModal{{ $index }}">
+                        Detail
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal untuk setiap item perangkat -->
+            <div class="modal fade" id="deviceModal{{ $index }}" tabindex="-1" aria-labelledby="deviceModalLabel{{ $index }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deviceModalLabel{{ $index }}">Device Detail</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Serial:</strong> {{ $item['serial'] ?? 'N/A' }}</p>
+                            <p><strong>Status:</strong> 
+                                <span class="status-indicator {{ $status }}"></span> 
+                                {{ ucfirst($status) }}
+                            </p>
+                            <!-- Anda bisa menambahkan informasi tambahan di sini -->
+                            <p><strong>Other Info:</strong> <!-- Misalnya informasi lain yang relevan --></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endforeach
-      </span>
-      </tbody>
-    
-  
-  </div>
-</div>
+    </div>
+</div> --}}
 
+    <!-- Tambahkan style di bawah ini -->
+    {{-- <style>
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
-<div class="card card-custom">
-  <div class="card-header">
-    <h5>Controller 1</h5>
-  </div>
-  <div class="card-body">
-    
-      <tbody>
-        
-        <span class="border-start">
-        @foreach($serverCtrl1Status as $index => $serverctr1)
-          <tr>
-            <td>
-              {{ $serverctr1['name'] }}
-              @if($serverctr1['status'])
-                    <span class="status-indicator online"></span>
-                    @else
-                    <span class="status-indicator offline"></span>
-                @endif
-            </td>
-            {{-- <td>
-             
-              @if($server['status'])
-                    <span class="status-indicator online"></span>
-                    @else
-                    <span class="status-indicator offline"></span>
-                @endif
-            </td> --}}
-            <td>
-              @if($serverctr1['error'])
-                {{ $serverctr1['error'] }}
-              @else
-                
-              @endif
-            </td>
-          </tr>
-        @endforeach
-      </span>
-      </tbody>
-    
-  
-  </div>
-</div>
+    .device-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: start;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
 
+    .serial {
+        flex: 1;
+        font-weight: bold;
+    }
 
-<div class="card card-custom">
-  <div class="card-header">
-    <h5>Controller 2</h5>
-  </div>
-  <div class="card-body">
-    
-      <tbody>
-        
-        <span class="border-start">
-        @foreach($serverCtrl2Status as $index => $serverctrl2)
-          <tr>
-            <td>
-              {{ $serverctrl2['name'] }}
-              @if($serverctrl2['status'])
-                    <span class="status-indicator online"></span>
-                    @else
-                    <span class="status-indicator offline"></span>
-                @endif
-            </td>
-            {{-- <td>
-             
-              @if($server['status'])
-                    <span class="status-indicator online"></span>
-                    @else
-                    <span class="status-indicator offline"></span>
-                @endif
-            </td> --}}
-            <td>
-              @if($serverctrl2['error'])
-                {{ $serverctrl2['error'] }}
-              @else
-                
-              @endif
-            </td>
-          </tr>
-        @endforeach
-      </span>
-      </tbody>
-    
-  
-  </div>
-</div>
+    .status-indicator {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
 
-<div class="card card-custom">
-  <div class="card-header">
-    <h5>Controller 3</h5>
-  </div>
-  <div class="card-body">
-    
-      <tbody>
-        
-        <span class="border-start">
-        @foreach($serverCtrl3Status as $index => $serverctrl3)
-          <tr>
-            <td>
-              {{ $serverctrl3['name'] }}
-              @if($serverctrl3['status'])
-                    <span class="status-indicator online"></span>
-                    @else
-                    <span class="status-indicator offline"></span>
-                @endif
-            </td>
-            {{-- <td>
-             
-              @if($serverctrl3['status'])
-                    <span class="status-indicator online"></span>
-                    @else
-                    <span class="status-indicator offline"></span>
-                @endif
-            </td> --}}
-            <td>
-              @if($serverctrl3['error'])
-                {{ $serverctrl3['error'] }}
-              @else
-                
-              @endif
-            </td>
-          </tr>
-        @endforeach
-      </span>
-      </tbody>
-    
-  
-  </div>
-</div>
+    .status-indicator.live {
+        background-color: green; /* Hijau untuk hidup */
+    }
+
+    .status-indicator.dead {
+        background-color: red; /* Merah untuk mati */
+    }
+
+    .status-indicator.error {
+        background-color: orange; /* Kuning untuk error */
+    }
+</style> --}}
+
 
 @endsection

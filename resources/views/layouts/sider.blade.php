@@ -1,56 +1,56 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
-      {{-- <h3><i class="fa fa-user" aria-hidden="true"></i>{{auth()->user()->name}}</h3> --}}
-      <ul class="nav side-menu">
-        @if(auth()->user()->role == 'user')
-        <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="{{route('pages.datadevice.device')}}">Data Device</a></li>
-            
-          </ul>
-        </li>
+        {{-- <h3><i class="fa fa-user" aria-hidden="true"></i>{{auth()->user()->name}}</h3> --}}
+        <ul class="nav side-menu">
+            @if (auth()->user()->role == 'user')
+                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="/dashboard">Log Indikator</a></li>
+                        <li><a href="{{ route('pages.datadevice.device') }}">Data Device</a></li>
 
-        @else
-        <li>
-          <a href="/dashboard"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
-        </li>
-        
-        
+                    </ul>
+                </li>
+            @else
+                <li>
+                    <a href="/dashboard"><i class="fa fa-bug" aria-hidden="true"></i> Log Indikator</a>
+                </li>
 
-        <li><a><i class="fa fa-edit"></i> Show Screen STB <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            {{-- <li><a href="{{route('pages.showdevice.url')}}">Status Server </a></li> --}}
-            {{-- <li><a href="{{route('pages.showdevice.showall')}}">Show All Device </a></li>
+
+
+                {{-- <li><a><i class="fa fa-edit"></i> Show Screen STB <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu"> --}}
+                {{-- <li><a href="{{route('pages.showdevice.url')}}">Status Server </a></li> --}}
+                {{-- <li><a href="{{route('pages.showdevice.showall')}}">Show All Device </a></li>
             <li><a href="{{route('pages.showdevice.android')}}">Android </a></li> --}}
-            <li><a href="{{route('pages.showdevice.ctrl1')}}">Ctrl1 </a></li>
+                {{-- <li><a href="{{route('pages.showdevice.ctrl1')}}">Ctrl1 </a></li>
             <li><a href="{{route('pages.showdevice.ctrl2')}}">Ctrl2 </a></li>
-            <li><a href="{{route('pages.showdevice.ctrl3')}}">Ctrl3 </a></li>
-            {{-- <li><a href="{{route('pages.showdevice.showstb2')}}">STB2</a></li>
+            <li><a href="{{route('pages.showdevice.ctrl3')}}">Ctrl3 </a></li> --}}
+                {{-- <li><a href="{{route('pages.showdevice.showstb2')}}">STB2</a></li>
             <li><a href="form_advanced.html">Show device Ctrl2</a></li>
             <li><a href="form_advanced.html">Show device Android</a></li> --}}
-            
-          </ul>
+
+                {{-- </ul>
         </li>
-        
-        
-        <li><a><i class="fa fa-desktop"></i>Data <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            {{-- <li><a href="{{route('pages.datadevice.device')}}">Data Device</a></li> --}}
-            <li><a href="{{route('pages.dataserver.server')}}">Data Server</a></li>
-            <li><a href="{{route('pages.dataiventory.iventory')}}">Data Iventory</a></li>
-            <li><a href="{{route('fetch.data')}}">Data Devices</a></li>
-            {{-- <li><a href="{{route('server.ping')}}">ping</a></li> --}}
-          </ul>
-        </li>
-          @endif
-        {{-- <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+         --}}
+
+                {{-- <li><a><i class="fa fa-desktop"></i>Data <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu"> --}}
+                {{-- <li><a href="{{route('pages.datadevice.device')}}">Data Device</a></li> --}}
+                {{-- <li><a href="{{route('pages.dataserver.server')}}">Data Server</a></li>
+            <li><a href="{{route('pages.dataiventory.iventory')}}">Data Iventory</a></li> --}}
+                {{-- <li><a href="{{route('fetch.data')}}">Data Devices</a></li>
+            <li><a href="{{route('fetch.log')}}">Data Log Device</a></li> --}}
+                {{-- <li><a href="{{route('server.ping')}}">ping</a></li> --}}
+                {{-- </ul>
+        </li> --}}
+            @endif
+            {{-- <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="tables.html">Tables</a></li>
             <li><a href="tables_dynamic.html">Table Dynamic</a></li>
           </ul>
         </li> --}}
-        {{-- <li><a><i class="fa fa-bar-chart-o"></i> Login Your Server <span class="fa fa-chevron-down"></span></a>
+            {{-- <li><a><i class="fa fa-bar-chart-o"></i> Login Your Server <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="/">AndroidBOX</a></li>
            
@@ -58,9 +58,9 @@
             
         </ul>
         </li> --}}
-     
-      </ul>
-     
+
+        </ul>
+
     </div>
     {{-- <div class="menu_section">
       <h3>Live On</h3>
@@ -105,4 +105,4 @@
       </ul>
     </div> --}}
 
-  </div>
+</div>

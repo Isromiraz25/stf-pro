@@ -22,7 +22,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="#" class="site_title"><i class="fa fa-mobile" aria-hidden="true"></i> <span style="color:red;">M </span>O s i<span></a>
+              <a href="#" class="site_title"><i class="fa fa-mobile" aria-hidden="true"></i> <span style="color:red;">Log  </span>Indikator<span></a>
             </div>
 
             <div class="clearfix"></div>
