@@ -2,9 +2,6 @@
 @section('title', 'Log Devices')
 @section('content')
 
-
-
-
     {{-- untuk menampilkan semua device  --}}
 
     <div class="container">
@@ -29,7 +26,7 @@
                         <!-- Tombol untuk membuka modal -->
                         <button class="btn btn-info btn-sm" data-bs-toggle="modal"
                             data-bs-target="#deviceModal{{ $index }}">
-                            Detail
+                            <i class="fa fa-info" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
@@ -40,7 +37,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="deviceModalLabel{{ $index }}">Device Detail</h5>
+                                <h5 class="modal-title" id="deviceModalLabel{{ $index }}"> Device Detail</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -73,11 +70,11 @@
         .device-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
             justify-content: start;
             border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 5px;
+            border-radius: px;
             background-color: #f9f9f9;
         }
 
@@ -170,10 +167,10 @@
             </div>
         @endforeach
     </div>
-</div> --}}
+</div>
 
     <!-- Tambahkan style di bawah ini -->
-    {{-- <style>
+    <style>
     .row {
         display: flex;
         flex-wrap: wrap;
